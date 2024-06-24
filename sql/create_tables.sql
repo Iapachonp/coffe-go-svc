@@ -184,7 +184,7 @@ VALUES
     ('Café Excelso', 2, 2, 3, 2, 85.0, 'Medium', 'Full', 'Good', 'Clear', 'Sweet', 2, 'https://www.antesuncafe.com/static/media/project-img2.8ccdcab64328946462b4.png','2024-06-01 00:00:00', '2024-06-01 00:00:00'),
     ('Café Supremo', 3, 3, 3, 3, 83.5, 'Low', 'Medium', 'Fair', 'Clear', 'Sweet', 3, 'https://www.antesuncafe.com/static/media/project-img1.42b4985dc6e22b4b5394.png', '2024-06-01 00:00:00', '2024-06-01 00:00:00'),
     ('Café Gourmet', 2, 2, 4, 3, 82.0, 'High', 'Full', 'Good', 'Clear', 'Sweet', 1 , 'https://www.antesuncafe.com/static/media/project-img1.42b4985dc6e22b4b5394.png', '2024-06-01 00:00:00', '2024-06-01 00:00:00'),
-    ('Café Colombia', 1, 1, 2, 1, 86.5, 'High', 'Medium', 'Good', 'Clear', 'Sweet', 1, 'https://www.antesuncafe.com/static/media/project-img2.8ccdcab64328946462b4.png', '2024-06-01 00:00:00', '2024-06-01 00:00:00')
+    ('Café Colombia', 1, 1, 2, 1, 86.5, 'High', 'Medium', 'Good', 'Clear', 'Sweet', 1, 'https://www.antesuncafe.com/static/media/project-img2.8ccdcab64328946462b4.png', '2024-06-01 00:00:00', '2024-06-01 00:00:00'),
     ('Café Tabi', 1, 1, 2, 1, 88.5, 'High', 'Medium', 'Good', 'Clear', 'Sweet', 1, 'https://www.antesuncafe.com/static/media/project-img2.8ccdcab64328946462b4.png', '2024-06-01 00:00:00', '2024-06-01 00:00:00');
     -- ('Café Especial', 5, 5, 6, 5, 80.5, 'Medium', 'Medium', 'Fair', 'Clear', 'Sweet', 5, ''),
     -- ('Café Premium', 6, 6, 7, 6, 79.0, 'Low', 'Full', 'Good', 'Clear', 'Sweet', 6, ''),
