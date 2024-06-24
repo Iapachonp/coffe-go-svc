@@ -8,9 +8,9 @@ type Coffee struct {
 	Proccess    string    `json:"proccess"`
 	Origin      string    `json:"origin"`
 	Description string    `json:"description"`
-	Price       float32   `json:"price"`
-	Sca         float32   `json:"sca"`
-	Weight      string    `json:"weight"`
+	Price       float64   `json:"price"`
+	Sca         float64   `json:"sca"`
+	Weight      int	      `json:"weight"`
 	Image       string    `json:"image"`
 	CreatedAt   time.Time `json:"-"`
 	UpdatedAt   time.Time `json:"-"`
