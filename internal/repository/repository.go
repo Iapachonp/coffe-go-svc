@@ -8,6 +8,7 @@ import (
 type DatabaseRepo interface{
 	Connection() *sql.DB
 	AllCoffees() ([]*models.Coffee, error) 
+	Coffee(id string) ([]*models.Coffee, error)
 }
 
 
