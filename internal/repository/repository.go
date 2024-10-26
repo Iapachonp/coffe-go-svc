@@ -7,8 +7,12 @@ import (
 
 type DatabaseRepo interface{
 	Connection() *sql.DB
-	AllCoffees() ([]*models.Coffee, error) 
-	Coffee(id string) ([]*models.Coffee, error)
+	AllCoffees() ([]*models.CoffeeData, error) 
+	Coffee(id string) ([]*models.CoffeeData, error)
+	PostCoffee( Coffee *models.Coffee) (string, error) 
+	AllVarietals() ([]*models.Varietal, error) 
+	Varietal(id string) ([]*models.Varietal, error)
+	PostVarietal( Varietal *models.Varietal) (string, error)
 }
 
 

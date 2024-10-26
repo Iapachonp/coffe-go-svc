@@ -8,10 +8,15 @@ import (
 
 func (app *application) routes() http.Handler  {
 	mux := chi.NewRouter()
+	mux.Use(middleware.Logger)
 	mux.Use(middleware.Recoverer)
 	mux.Use(app.enableCORS)
 	mux.Get("/", app.Home)
 	mux.Get("/coffees", app.ListCoffees)
+	mux.Post("/coffees", app.CreateCoffee)
 	mux.Get("/coffees/{id}", app.CoffeeInfo)
+	mux.Get("/varietals", app.ListVarietals)
+	mux.Post("/varietals", app.CreateVarietal)
+	mux.Get("/varietals/{id}", app.VarietalInfo)
 	return mux
 }
