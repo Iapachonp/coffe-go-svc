@@ -102,8 +102,8 @@ func (m *PostgresDBRepo) PostVarietal(varietal *models.Varietal) (string, error)
 	id := 0
 	query := `
 	INSERT INTO public.varietals (Name, Description, BeanSize, Stature, QualityPotential, OptimalAltitude) VALUES
-	($1, $2, $3, $4, $5, $6, $7)
-	RETURNING CoffeeId`
+	($1, $2, $3, $4, $5, $6)
+	RETURNING varietalId`
 	err := m.DB.QueryRowContext(ctx, query,
 		varietal.Name,
 		varietal.Description,
