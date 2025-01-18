@@ -13,6 +13,9 @@ type DatabaseRepo interface{
 	AllVarietals() ([]*models.Varietal, error) 
 	Varietal(id string) ([]*models.Varietal, error)
 	PostVarietal( Varietal *models.Varietal) (string, error)
+	AllFarmers() ([]*models.Farmer, error) 
+	Farmer(id string) ([]*models.Farmer, error)
+	PostFarmer( Farmer *models.Farmer) (string, error)
 }
 
 

@@ -143,6 +143,76 @@ func (app *application) VarietalInfo(w http.ResponseWriter, r *http.Request)  {
 
 }
 
+// ------------ farmers --------------- 
+
+func (app *application) CreateFarmer(w http.ResponseWriter, r *http.Request)  {
+	
+	var farmer *models.Farmer	
+
+	err := json.NewDecoder(r.Body).Decode(&farmer)
+
+	if err != nil {
+        http.Error(w, err.Error(), http.StatusBadRequest)
+        return
+	}
+
+	// Do something with the Farmer struct...
+	fmt.Fprintf(w, "Farmer: %+v", farmer)
+
+	created, err := app.DB.PostFarmer(farmer)
+
+	if err != nil{
+		fmt.Println(err)
+	}
+
+	success := ""
+	
+	if created != "" {
+		success = "operation was successful " + created 	
+	} else {
+		success = "operation was not successful"
+	}
+
+	w.Header().Set("Content-Type","app-application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte(success))
+
+}
+
+
+func (app *application) ListFarmers(w http.ResponseWriter, r *http.Request)  {
+	
+	farmers, err := app.DB.AllFarmers()
+
+	out, err := json.Marshal(farmers)
+	if err != nil{
+		fmt.Println(err)
+	}
+
+	w.Header().Set("Content-Type","app-application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(out)
+
+}
+
+
+func (app *application) FarmerInfo(w http.ResponseWriter, r *http.Request)  {
+	
+	farmer, err := app.DB.Farmer(chi.URLParam(r, "id"))
+
+	out, err := json.Marshal(farmer)
+	if err != nil{
+		fmt.Println(err)
+	}
+
+	w.Header().Set("Content-Type","app-application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(out)
+
+}
+
+
+
 
 func (app *application) Home(w http.ResponseWriter, r *http.Request)  {
 	var payload = struct {
