@@ -19,7 +19,7 @@ func (m *PostgresDBRepo) AllCoffees() ([]*models.CoffeeData, error) {
 			coffees c
 	        join varietals v on c.varietalid =  v.varietalid
 		join prices p on c.priceid =  p.priceid
-		join origin o on c.originid =  o.originid
+		join origins o on c.originid =  o.originid
 		join Proccess pr on c.proccessid =  pr.proccessid
 		order by 
 			name
@@ -73,7 +73,7 @@ func (m *PostgresDBRepo) Coffee(id string) ([]*models.CoffeeData, error) {
 			coffees c
 	        join varietals v on c.varietalid =  v.varietalid
 		join prices p on c.priceid =  p.priceid
-		join origin o on c.originid =  o.originid
+		join origins o on c.originid =  o.originid
 		join Proccess pr on c.proccessid =  pr.proccessid
 		where c.coffeeid = $1
 		order by name

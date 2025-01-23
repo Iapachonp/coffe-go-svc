@@ -21,5 +21,8 @@ func (app *application) routes() http.Handler  {
 	mux.Get("/farmers", app.ListFarmers)
 	mux.Post("/farmers", app.CreateFarmer)
 	mux.Get("/farmers/{id}", app.FarmerInfo)
+	mux.Get("/origins", app.ListOrigins)
+	mux.Post("/origins", app.CreateOrigin)
+	mux.Get("/origins/{id}", app.OriginInfo)
 	return mux
 }

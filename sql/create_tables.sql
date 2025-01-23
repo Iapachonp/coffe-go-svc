@@ -104,12 +104,23 @@ ALTER TABLE public.farmers ALTER COLUMN farmerId ADD GENERATED ALWAYS AS IDENTIT
 
 
 -- Create table 'Origin'
-CREATE TABLE public.origin (
+CREATE TABLE public.origins (
     originid INT PRIMARY KEY,
     country CHAR(255) NOT NULL,
     state CHAR(255),
     citytown CHAR(255)
 );
+
+
+ALTER TABLE public.origins ALTER COLUMN originId ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.origin_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
 -- Create table 'Proccess'
 CREATE TABLE public.proccess (
     proccessid INT PRIMARY KEY,
@@ -124,17 +135,6 @@ CREATE TABLE public.prices (
     grams INT NOT NULL,
     values DECIMAL(10, 2) NOT NULL
 );
-
-
-
--- Insert data into table 'Origin'
-INSERT INTO public.origin (originid, country, state, citytown) VALUES
-(1, 'Colombia', 'Antioquia', 'Medellín'),
-(2, 'Brazil', 'Minas Gerais', 'Belo Horizonte'),
-(3, 'Ethiopia', 'Sidamo', 'Yirgacheffe'),
-(4, 'Colombia', 'Huila', 'Tres Esquinas');
-
-
 
 -- Insert data into table 'Proccess'
 INSERT INTO public.proccess (proccessid, name, description, timeduration) VALUES
@@ -211,3 +211,10 @@ INSERT INTO public.farmers (name, description, altitude) VALUES
 ('Farmer 1', 'This is farmer 1', '1000'),
 ('Farmer 2', 'This is farmer 2', '1500'),
 ('Farmer 3', 'This is farmer 3', '2000');
+
+-- Insert data into table 'Origin'
+INSERT INTO public.origins ( country, state, citytown) VALUES
+('Colombia', 'Antioquia', 'Medellín'),
+('Brazil', 'Minas Gerais', 'Belo Horizonte'),
+('Ethiopia', 'Sidamo', 'Yirgacheffe'),
+('Colombia', 'Huila', 'Tres Esquinas');

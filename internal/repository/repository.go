@@ -16,6 +16,9 @@ type DatabaseRepo interface{
 	AllFarmers() ([]*models.Farmer, error) 
 	Farmer(id string) ([]*models.Farmer, error)
 	PostFarmer( Farmer *models.Farmer) (string, error)
+	AllOrigins() ([]*models.Origin, error) 
+	Origin(id string) ([]*models.Origin, error)
+	PostOrigin( Origin *models.Origin) (string, error)
 }
 
 

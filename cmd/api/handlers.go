@@ -212,6 +212,73 @@ func (app *application) FarmerInfo(w http.ResponseWriter, r *http.Request)  {
 }
 
 
+// ------------ origins --------------- 
+
+func (app *application) CreateOrigin(w http.ResponseWriter, r *http.Request)  {
+	
+	var origin *models.Origin	
+
+	err := json.NewDecoder(r.Body).Decode(&origin)
+
+	if err != nil {
+        http.Error(w, err.Error(), http.StatusBadRequest)
+        return
+	}
+
+	// Do something with the Origin struct...
+	fmt.Fprintf(w, "Origin: %+v", origin)
+
+	created, err := app.DB.PostOrigin(origin)
+
+	if err != nil{
+		fmt.Println(err)
+	}
+
+	success := ""
+	
+	if created != "" {
+		success = "operation was successful " + created 	
+	} else {
+		success = "operation was not successful"
+	}
+
+	w.Header().Set("Content-Type","app-application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte(success))
+
+}
+
+
+func (app *application) ListOrigins(w http.ResponseWriter, r *http.Request)  {
+	
+	farmers, err := app.DB.AllOrigins()
+
+	out, err := json.Marshal(farmers)
+	if err != nil{
+		fmt.Println(err)
+	}
+
+	w.Header().Set("Content-Type","app-application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(out)
+
+}
+
+
+func (app *application) OriginInfo(w http.ResponseWriter, r *http.Request)  {
+	
+	farmer, err := app.DB.Origin(chi.URLParam(r, "id"))
+
+	out, err := json.Marshal(farmer)
+	if err != nil{
+		fmt.Println(err)
+	}
+
+	w.Header().Set("Content-Type","app-application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(out)
+
+}
 
 
 func (app *application) Home(w http.ResponseWriter, r *http.Request)  {
