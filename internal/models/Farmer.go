@@ -4,5 +4,5 @@ type Farmer struct {
 	FarmerId         int    `json:"farmerid"`
 	Name             string `json:"name"`
 	Description      string `json:"description"`
-	Altitude         int    `json:"altitude"`
+	Altitude         string `json:"altitude"`
 }

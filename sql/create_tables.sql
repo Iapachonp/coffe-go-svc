@@ -90,8 +90,19 @@ CREATE TABLE public.farmers (
     farmerid INT PRIMARY KEY,
     name CHAR(255) NOT NULL,
     description CHAR(255),
-    altitude INT
+    altitude CHAR(255)
 );
+
+ALTER TABLE public.farmers ALTER COLUMN farmerId ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.farmer_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
 -- Create table 'Origin'
 CREATE TABLE public.origin (
     originid INT PRIMARY KEY,
@@ -113,14 +124,6 @@ CREATE TABLE public.prices (
     grams INT NOT NULL,
     values DECIMAL(10, 2) NOT NULL
 );
-
-
-
--- Insert data into table 'Farmers'
-INSERT INTO public.farmers (farmerid, name, description, altitude) VALUES
-(1, 'Farmer 1', 'This is farmer 1', 1000),
-(2, 'Farmer 2', 'This is farmer 2', 1500),
-(3, 'Farmer 3', 'This is farmer 3', 2000);
 
 
 
@@ -202,3 +205,9 @@ VALUES
     -- ('Café Jamaica Blue Mountain', 18, 18, 19, 18, 61.0, 'Low', 'Full', 'Good', 'Clear', 'Sweet', 18, ''),
     -- ('Café Kona', 19, 19, 20, 19, 59.5, 'High', 'Medium', 'Fair', 'Clear', 'Sweet', 19, ''),
     -- ('Café Kopi Luwak', 20, 20, 21, 20, 58.0, 'Medium', 'Full', 'Good', 'Clear', 'Sweet', 20, '');
+
+-- Insert data into table 'Farmers'
+INSERT INTO public.farmers (name, description, altitude) VALUES
+('Farmer 1', 'This is farmer 1', '1000'),
+('Farmer 2', 'This is farmer 2', '1500'),
+('Farmer 3', 'This is farmer 3', '2000');

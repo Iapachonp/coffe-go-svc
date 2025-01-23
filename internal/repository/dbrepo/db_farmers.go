@@ -97,7 +97,7 @@ func (m *PostgresDBRepo) PostFarmer(farmer *models.Farmer) (string, error) {
 	query := `
 	INSERT INTO public.farmers (Name, Description, Altitude ) VALUES
 	($1, $2, $3)
-	RETURNING farmerId`
+	RETURNING farmerid`
 	err := m.DB.QueryRowContext(ctx, query,
 		farmer.Name,
 		farmer.Description,
