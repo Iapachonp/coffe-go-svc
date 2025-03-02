@@ -9,6 +9,7 @@ type DatabaseRepo interface{
 	Connection() *sql.DB
 	AllCoffees() ([]*models.CoffeeData, error) 
 	Coffee(id string) ([]*models.CoffeeData, error)
+	DeleteCoffee(id string) (bool, error)
 	PostCoffee( Coffee *models.Coffee) (string, error) 
 	AllVarietals() ([]*models.Varietal, error) 
 	Varietal(id string) ([]*models.Varietal, error)
@@ -19,6 +20,9 @@ type DatabaseRepo interface{
 	AllOrigins() ([]*models.Origin, error) 
 	Origin(id string) ([]*models.Origin, error)
 	PostOrigin( Origin *models.Origin) (string, error)
+	AllProcesses() ([]*models.Process, error) 
+	Process(id string) ([]*models.Process, error)
+	PostProcess( Process *models.Process) (string, error)
 }
 
 

@@ -5,13 +5,13 @@ import "time"
 type Coffee struct {
 	ID          int       `json:"id"`
 	Name        string    `json:"name"`
-	VarietalId  int	      `json:"varietalId"`	
-	FarmerId    int       `json:"farmerId"`
-	OriginId    int       `json:"originId"`
-	ProcessId   int       `json:"processId"`
+	VarietalId  int	      `json:"varietalId,string"`	
+	FarmerId    int       `json:"farmerId,string"`
+	OriginId    int       `json:"originId,string"`
+	ProcessId   int       `json:"processId,string"`
 	Description string    `json:"description"`
-	PriceId     int       `json:"price"`
-	Sca         float64   `json:"sca"`
+	PriceId     int       `json:"priceId,string"`
+	Sca         float64   `json:"sca,string"`
 	Acidity     string    `json:"acidity"`
 	Body        string    `json:"body`
 	Balance     string    `json:"balance`
@@ -25,10 +25,10 @@ type Coffee struct {
 type CoffeeData struct {
 	ID          int       `json:"id"`
 	Name        string    `json:"name"`
-	Proccess    string    `json:"proccess"`
+	Process     string    `json:"process"`
 	Origin      string    `json:"origin"`
 	Description string    `json:"description"`
-	Price       float64   `json:"price"`
+	Price       float64   `json:"priceid"`
 	Sca         float64   `json:"sca"`
 	Weight      int	      `json:"weight"`
 	Image       string    `json:"image"`

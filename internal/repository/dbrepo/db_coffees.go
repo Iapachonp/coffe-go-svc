@@ -14,13 +14,13 @@ func (m *PostgresDBRepo) AllCoffees() ([]*models.CoffeeData, error) {
 
 	query := `
 		select 
-			c.coffeeid as ID, c.name as Name , pr.name as Proccess, o.state || ' ' || o.citytown as Origin, v.description Description, sca SCA, p.grams as Weight , p.values as Price , coalesce(image, '') as Image, Createdat, Updatedat 
+			c.coffeeid as ID, c.name as Name , pr.name as Process, o.state || ' ' || o.citytown as Origin, v.description Description, sca SCA, p.grams as Weight , p.values as Price , coalesce(image, '') as Image, Createdat, Updatedat 
 		from 
 			coffees c
 	        join varietals v on c.varietalid =  v.varietalid
 		join prices p on c.priceid =  p.priceid
 		join origins o on c.originid =  o.originid
-		join Proccess pr on c.proccessid =  pr.proccessid
+		join Processes pr on c.processid =  pr.processid
 		order by 
 			name
 	`
@@ -40,7 +40,7 @@ func (m *PostgresDBRepo) AllCoffees() ([]*models.CoffeeData, error) {
 		err := rows.Scan(
 			&coffee.ID,
 			&coffee.Name,
-			&coffee.Proccess,
+			&coffee.Process,
 			&coffee.Origin,
 			&coffee.Description,
 			&coffee.Sca,
@@ -68,13 +68,13 @@ func (m *PostgresDBRepo) Coffee(id string) ([]*models.CoffeeData, error) {
 	defer cancel()
 	query := `
 		select 
-			c.coffeeid as ID, c.name as Name , pr.name as Proccess, o.state || ' ' || o.citytown as Origin, v.description Description, sca SCA, p.grams as Weight , p.values as Price , coalesce(image, '') as Image, Createdat, Updatedat 
+			c.coffeeid as ID, c.name as Name , pr.name as Process, o.state || ' ' || o.citytown as Origin, v.description Description, sca SCA, p.grams as Weight , p.values as Price , coalesce(image, '') as Image, Createdat, Updatedat 
 		from 
 			coffees c
 	        join varietals v on c.varietalid =  v.varietalid
 		join prices p on c.priceid =  p.priceid
 		join origins o on c.originid =  o.originid
-		join Proccess pr on c.proccessid =  pr.proccessid
+		join Processes pr on c.processid =  pr.processid
 		where c.coffeeid = $1
 		order by name
 		limit 1 
@@ -95,7 +95,7 @@ func (m *PostgresDBRepo) Coffee(id string) ([]*models.CoffeeData, error) {
 		err := rows.Scan(
 			&coffee.ID,
 			&coffee.Name,
-			&coffee.Proccess,
+			&coffee.Process,
 			&coffee.Origin,
 			&coffee.Description,
 			&coffee.Sca,
@@ -128,7 +128,7 @@ func (m *PostgresDBRepo) PostCoffee(coffee *models.Coffee) (string, error) {
 		varietalId,
 		FarmerId,
 		OriginId,
-		ProccessId,
+		ProcessId,
 		SCA,
 		Acidity,
 		Body,
@@ -168,3 +168,35 @@ func (m *PostgresDBRepo) PostCoffee(coffee *models.Coffee) (string, error) {
 	coffeid := "New Coffee created with id:" + strconv.FormatInt(int64(id), 10)
 	return coffeid, nil
 }
+
+
+func (m *PostgresDBRepo) DeleteCoffee(id string) (bool, error) {
+
+	ctx, cancel := context.WithTimeout(context.Background(), dbTimeout)
+	defer cancel()
+	query := `
+		DELETE FROM coffees WHERE coffeeid = $1; 
+	`
+
+	result, err := m.DB.ExecContext(ctx, query, id)
+	if err != nil {
+		log.Println(err)
+		log.Println("error no able to query databaases for coffees")
+		return false, err
+	}
+
+	rows, err := result.RowsAffected()
+	
+	if err != nil {
+		log.Println(err)
+		return false, err
+	}
+	
+	if rows != 1 {
+		log.Println("expected to affect 1 row, affected %d", rows)
+		return false, err
+		}
+	return true, nil
+
+}
+	

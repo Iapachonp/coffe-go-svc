@@ -16,10 +16,11 @@ CREATE TABLE public.users (
 CREATE TABLE public.coffees (
     CoffeeId INT PRIMARY KEY,
     Name CHAR(255) NOT NULL,
+    Description CHAR(255),
     varietalId INT NOT NULL,
     FarmerId INT NOT NULL,
     OriginId INT NOT NULL,
-    ProccessId INT NOT NULL,
+    processId INT NOT NULL,
     SCA DECIMAL(3, 1) NOT NULL,
     Acidity CHAR(255) NOT NULL,
     Body CHAR(255) NOT NULL,
@@ -121,13 +122,23 @@ ALTER TABLE public.origins ALTER COLUMN originId ADD GENERATED ALWAYS AS IDENTIT
     CACHE 1
 );
 
--- Create table 'Proccess'
-CREATE TABLE public.proccess (
-    proccessid INT PRIMARY KEY,
+-- Create table 'process'
+CREATE TABLE public.processes (
+    processid INT PRIMARY KEY,
     name CHAR(255) NOT NULL,
     description CHAR(255),
     timeduration CHAR(255)
 );
+
+ALTER TABLE public.processes ALTER COLUMN processId ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.process_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
 -- Create table 'Prices'
 CREATE TABLE public.prices (
     priceid INT PRIMARY KEY,
@@ -136,11 +147,7 @@ CREATE TABLE public.prices (
     values DECIMAL(10, 2) NOT NULL
 );
 
--- Insert data into table 'Proccess'
-INSERT INTO public.proccess (proccessid, name, description, timeduration) VALUES
-(1, 'Washed', 'This is the washed process', '24 hours'),
-(2, 'Natural', 'This is the natural process', '10 days'),
-(3, 'Honey', 'This is the honey process', '30 days');
+
 
 
 -- Insert data into table 'Prices'
@@ -167,10 +174,11 @@ INSERT INTO public.varietals (Name, Description, BeanSize, Stature, QualityPoten
 
 INSERT INTO public.coffees (
     Name,
+    Description,
     varietalId,
     FarmerId,
     OriginId,
-    ProccessId,
+    processId,
     SCA,
     Acidity,
     Body,
@@ -183,12 +191,12 @@ INSERT INTO public.coffees (
     Updatedat
 )
 VALUES
-    ('Café de Altura', 1, 1, 2, 1, 86.5, 'High', 'Medium', 'Good', 'Clear', 'Sweet', 1, 'https://www.antesuncafe.com/static/media/project-img1.42b4985dc6e22b4b5394.png', '2024-06-01 00:00:00', '2024-06-01 00:00:00'),
-    ('Café Excelso', 2, 2, 3, 2, 85.0, 'Medium', 'Full', 'Good', 'Clear', 'Sweet', 2, 'https://www.antesuncafe.com/static/media/project-img2.8ccdcab64328946462b4.png','2024-06-01 00:00:00', '2024-06-01 00:00:00'),
-    ('Café Supremo', 3, 3, 3, 3, 83.5, 'Low', 'Medium', 'Fair', 'Clear', 'Sweet', 3, 'https://www.antesuncafe.com/static/media/project-img1.42b4985dc6e22b4b5394.png', '2024-06-01 00:00:00', '2024-06-01 00:00:00'),
-    ('Café Gourmet', 2, 2, 4, 3, 82.0, 'High', 'Full', 'Good', 'Clear', 'Sweet', 1 , 'https://www.antesuncafe.com/static/media/project-img1.42b4985dc6e22b4b5394.png', '2024-06-01 00:00:00', '2024-06-01 00:00:00'),
-    ('Café Colombia', 1, 1, 2, 1, 86.5, 'High', 'Medium', 'Good', 'Clear', 'Sweet', 1, 'https://www.antesuncafe.com/static/media/project-img2.8ccdcab64328946462b4.png', '2024-06-01 00:00:00', '2024-06-01 00:00:00'),
-    ('Café Tabi', 1, 1, 2, 1, 88.5, 'High', 'Medium', 'Good', 'Clear', 'Sweet', 1, 'https://www.antesuncafe.com/static/media/project-img2.8ccdcab64328946462b4.png', '2024-06-01 00:00:00', '2024-06-01 00:00:00');
+    ('Café de Altura', 'Cafe de altura super util agregar algo aca',1, 1, 2, 1, 86.5, 'High', 'Medium', 'Good', 'Clear', 'Sweet', 1, 'https://www.antesuncafe.com/static/media/project-img1.42b4985dc6e22b4b5394.png', '2024-06-01 00:00:00', '2024-06-01 00:00:00'),
+    ('Café Excelso', 'Cafe Excelso super util agregar algo aca', 2, 2, 3, 2, 85.0, 'Medium', 'Full', 'Good', 'Clear', 'Sweet', 2, 'https://www.antesuncafe.com/static/media/project-img2.8ccdcab64328946462b4.png','2024-06-01 00:00:00', '2024-06-01 00:00:00'),
+    ('Café Supremo', 'Cafe Supremo super util agregar algo aca', 3, 3, 3, 3, 83.5, 'Low', 'Medium', 'Fair', 'Clear', 'Sweet', 3, 'https://www.antesuncafe.com/static/media/project-img1.42b4985dc6e22b4b5394.png', '2024-06-01 00:00:00', '2024-06-01 00:00:00'),
+    ('Café Gourmet', 'Cafe Gourmet super util agregar algo aca', 2, 2, 4, 3, 82.0, 'High', 'Full', 'Good', 'Clear', 'Sweet', 1 , 'https://www.antesuncafe.com/static/media/project-img1.42b4985dc6e22b4b5394.png', '2024-06-01 00:00:00', '2024-06-01 00:00:00'),
+    ('Café Colombia', 'Cafe Colombia super util agregar algo aca', 1, 1, 2, 1, 86.5, 'High', 'Medium', 'Good', 'Clear', 'Sweet', 1, 'https://www.antesuncafe.com/static/media/project-img2.8ccdcab64328946462b4.png', '2024-06-01 00:00:00', '2024-06-01 00:00:00'),
+    ('Café Tabi', 'Cafe Tabi super util agregar algo aca', 1, 1, 2, 1, 88.5, 'High', 'Medium', 'Good', 'Clear', 'Sweet', 1, 'https://www.antesuncafe.com/static/media/project-img2.8ccdcab64328946462b4.png', '2024-06-01 00:00:00', '2024-06-01 00:00:00');
     -- ('Café Especial', 5, 5, 6, 5, 80.5, 'Medium', 'Medium', 'Fair', 'Clear', 'Sweet', 5, ''),
     -- ('Café Premium', 6, 6, 7, 6, 79.0, 'Low', 'Full', 'Good', 'Clear', 'Sweet', 6, ''),
     -- ('Café Arábigo', 7, 7, 8, 7, 77.5, 'High', 'Medium', 'Fair', 'Clear', 'Sweet', 7, ''),
@@ -218,3 +226,9 @@ INSERT INTO public.origins ( country, state, citytown) VALUES
 ('Brazil', 'Minas Gerais', 'Belo Horizonte'),
 ('Ethiopia', 'Sidamo', 'Yirgacheffe'),
 ('Colombia', 'Huila', 'Tres Esquinas');
+
+-- Insert data into table 'process'
+INSERT INTO public.processes ( name, description, timeduration) VALUES
+('Washed', 'This is the washed process', '24 hours'),
+('Natural', 'This is the natural process', '10 days'),
+('Honey', 'This is the honey process', '30 days');

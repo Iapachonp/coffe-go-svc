@@ -15,6 +15,7 @@ func (app *application) routes() http.Handler  {
 	mux.Get("/coffees", app.ListCoffees)
 	mux.Post("/coffees", app.CreateCoffee)
 	mux.Get("/coffees/{id}", app.CoffeeInfo)
+	mux.Delete("/coffees/{id}", app.Deletecoffee)
 	mux.Get("/varietals", app.ListVarietals)
 	mux.Post("/varietals", app.CreateVarietal)
 	mux.Get("/varietals/{id}", app.VarietalInfo)
@@ -24,5 +25,8 @@ func (app *application) routes() http.Handler  {
 	mux.Get("/origins", app.ListOrigins)
 	mux.Post("/origins", app.CreateOrigin)
 	mux.Get("/origins/{id}", app.OriginInfo)
+	mux.Get("/processes", app.ListProcesses)
+	mux.Post("/processes", app.CreateProcess)
+	mux.Get("/processes/{id}", app.ProcessInfo)
 	return mux
 }

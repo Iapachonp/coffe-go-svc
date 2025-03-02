@@ -75,6 +75,22 @@ func (app *application) CoffeeInfo(w http.ResponseWriter, r *http.Request)  {
 
 }
 
+func (app *application) Deletecoffee(w http.ResponseWriter, r *http.Request)  {
+	
+	coffee, err := app.DB.DeleteCoffee(chi.URLParam(r, "id"))
+
+	out, err := json.Marshal(coffee)
+	
+	if err != nil{
+		fmt.Println(err)
+	}
+
+	w.Header().Set("Content-Type","app-application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(out)
+
+}
+
 
 
 func (app *application) CreateVarietal(w http.ResponseWriter, r *http.Request)  {
@@ -268,6 +284,74 @@ func (app *application) ListOrigins(w http.ResponseWriter, r *http.Request)  {
 func (app *application) OriginInfo(w http.ResponseWriter, r *http.Request)  {
 	
 	farmer, err := app.DB.Origin(chi.URLParam(r, "id"))
+
+	out, err := json.Marshal(farmer)
+	if err != nil{
+		fmt.Println(err)
+	}
+
+	w.Header().Set("Content-Type","app-application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(out)
+
+}
+
+// ------------ processes --------------- 
+
+func (app *application) CreateProcess(w http.ResponseWriter, r *http.Request)  {
+	
+	var process *models.Process	
+
+	err := json.NewDecoder(r.Body).Decode(&process)
+
+	if err != nil {
+        http.Error(w, err.Error(), http.StatusBadRequest)
+        return
+	}
+
+	// Do something with the Process struct...
+	fmt.Fprintf(w, "Process: %+v", process)
+
+	created, err := app.DB.PostProcess(process)
+
+	if err != nil{
+		fmt.Println(err)
+	}
+
+	success := ""
+	
+	if created != "" {
+		success = "operation was successful " + created 	
+	} else {
+		success = "operation was not successful"
+	}
+
+	w.Header().Set("Content-Type","app-application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte(success))
+
+}
+
+
+func (app *application) ListProcesses(w http.ResponseWriter, r *http.Request)  {
+	
+	farmers, err := app.DB.AllProcesses()
+
+	out, err := json.Marshal(farmers)
+	if err != nil{
+		fmt.Println(err)
+	}
+
+	w.Header().Set("Content-Type","app-application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(out)
+
+}
+
+
+func (app *application) ProcessInfo(w http.ResponseWriter, r *http.Request)  {
+	
+	farmer, err := app.DB.Process(chi.URLParam(r, "id"))
 
 	out, err := json.Marshal(farmer)
 	if err != nil{
