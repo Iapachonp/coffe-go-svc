@@ -125,6 +125,7 @@ func (m *PostgresDBRepo) PostCoffee(coffee *models.Coffee) (string, error) {
 	query := `
 	INSERT INTO coffees (
 		Name,
+		Description,
 		varietalId,
 		FarmerId,
 		OriginId,
@@ -140,10 +141,11 @@ func (m *PostgresDBRepo) PostCoffee(coffee *models.Coffee) (string, error) {
 		Createdat,
 		Updatedat
 		)
-	VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
+	VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)
 	RETURNING CoffeeId`
 	err := m.DB.QueryRowContext(ctx, query,
 		coffee.Name,
+		coffee.Description,
 		coffee.VarietalId,
 		coffee.FarmerId,
 		coffee.OriginId,

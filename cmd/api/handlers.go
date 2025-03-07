@@ -17,6 +17,7 @@ func (app *application) CreateCoffee(w http.ResponseWriter, r *http.Request)  {
 
 	if err != nil {
         http.Error(w, err.Error(), http.StatusBadRequest)
+	fmt.Println(err)
         return
 	}
 
@@ -387,3 +388,73 @@ func (app *application) Home(w http.ResponseWriter, r *http.Request)  {
 	w.Write(out)
 
 }
+
+
+// ------------ Prices --------------- 
+
+// func (app *application) CreatePrice(w http.ResponseWriter, r *http.Request)  {
+// 	
+// 	var price *models.Price	
+//
+// 	err := json.NewDecoder(r.Body).Decode(&price)
+//
+// 	if err != nil {
+//         http.Error(w, err.Error(), http.StatusBadRequest)
+//         fmt.Println(err)
+// 	return
+// 	}
+//
+// 	// Do something with the Price struct...
+// 	fmt.Fprintf(w, "Price: %+v", price)
+//
+// 	created, err := app.DB.PostPrice(price)
+//
+// 	if err != nil{
+// 		fmt.Println(err)
+// 	}
+//
+// 	success := ""
+// 	
+// 	if created != "" {
+// 		success = "operation was successful " + created 	
+// 	} else {
+// 		success = "operation was not successful"
+// 	}
+//
+// 	w.Header().Set("Content-Type","app-application/json")
+// 	w.WriteHeader(http.StatusOK)
+// 	w.Write([]byte(success))
+//
+// }
+
+
+func (app *application) ListPrices(w http.ResponseWriter, r *http.Request)  {
+	
+	prices, err := app.DB.AllPrices()
+
+	out, err := json.Marshal(prices)
+	if err != nil{
+		fmt.Println(err)
+	}
+
+	w.Header().Set("Content-Type","app-application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(out)
+
+}
+
+
+// func (app *application) PriceInfo(w http.ResponseWriter, r *http.Request)  {
+// 	
+// 	farmer, err := app.DB.Price(chi.URLParam(r, "id"))
+//
+// 	out, err := json.Marshal(farmer)
+// 	if err != nil{
+// 		fmt.Println(err)
+// 	}
+//
+// 	w.Header().Set("Content-Type","app-application/json")
+// 	w.WriteHeader(http.StatusOK)
+// 	w.Write(out)
+//
+// }

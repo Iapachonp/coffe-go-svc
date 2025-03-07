@@ -141,21 +141,32 @@ ALTER TABLE public.processes ALTER COLUMN processId ADD GENERATED ALWAYS AS IDEN
 
 -- Create table 'Prices'
 CREATE TABLE public.prices (
-    priceid INT PRIMARY KEY,
-    coffeeid INT NOT NULL,
-    grams INT NOT NULL,
-    values DECIMAL(10, 2) NOT NULL
+    Priceid INT PRIMARY KEY,
+    prices JSONB
 );
 
 
+ALTER TABLE public.prices ALTER COLUMN priceId ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.price_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
 
 
 -- Insert data into table 'Prices'
-INSERT INTO public.prices (priceid, coffeeid, grams, values) VALUES
-(1, 1, 250, 10.00),
-(2, 2, 500, 15.00),
-(3, 3, 1000, 20.00);
+INSERT INTO public.prices ( prices) VALUES
+('[{ "grams": "250", "price" :"20000"} , {"grams": "500", "price" : "38000"} , {"grams": "1000", "price": "72000"} , {"grams":"2000", "price" :"170000" }]'),
+('[{"grams": "500", "price" : "38000"} , {"grams": "1000", "price": "72000"} , {"grams":"2000", "price" :"170000" }]'),
+('[{ "grams": "250", "price" :"38000"} , {"grams": "500", "price" : "60000"} , {"grams": "1000", "price": "110000"} , {"grams":"2000", "price" :"250000" }]'),
+('[{ "grams": "250", "price" :"38000"} , {"grams": "500", "price" : "60000"}]'),
+('[{ "grams": "250", "price" :"59000"} , {"grams": "1000", "price" : "99000"}]');
 
+-- select prices -> '500gr' value from prices where priceid = 2;
+
+-- select jsonb_path_query(prices, '$.grams'), jsonb_path_query(prices, '$.price')  from prices where priceid = 3;
 
 
 INSERT INTO public.varietals (Name, Description, BeanSize, Stature, QualityPotential, OptimalAltitude) VALUES

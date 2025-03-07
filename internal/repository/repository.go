@@ -23,6 +23,9 @@ type DatabaseRepo interface{
 	AllProcesses() ([]*models.Process, error) 
 	Process(id string) ([]*models.Process, error)
 	PostProcess( Process *models.Process) (string, error)
+	AllPrices() ([]models.PriceGo, error) 
+	Price(id string) ([]*models.Price, error)
+	PostPrice( Price *models.Price) (string, error)
 }
 
 

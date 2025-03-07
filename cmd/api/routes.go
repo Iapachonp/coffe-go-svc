@@ -28,5 +28,8 @@ func (app *application) routes() http.Handler  {
 	mux.Get("/processes", app.ListProcesses)
 	mux.Post("/processes", app.CreateProcess)
 	mux.Get("/processes/{id}", app.ProcessInfo)
+	mux.Get("/prices", app.ListPrices)
+	// mux.Post("/prices", app.CreatePrice)
+	// mux.Get("/prices/{id}", app.PriceInfo)
 	return mux
 }
